@@ -8,4 +8,5 @@ with open("test.csv") as file:
     for row in reader:
         money.append(row)
     
-print(money)
+#print(money)
+
