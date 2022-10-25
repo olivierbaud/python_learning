@@ -9,5 +9,5 @@ class Operations(models.Model):
     category = models.CharField(max_length=200)
     
     def __str__(self):
-        return f"{self.date}, {self.type}, {self.memo}, {self.amount}, {self.category} "
-    
+        #return f"{self.date}, {self.type}, {self.memo}, {self.amount}, {self.category} "
+        return self.memo
