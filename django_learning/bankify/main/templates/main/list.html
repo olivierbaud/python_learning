@@ -5,9 +5,9 @@
     <ul>
         {% for item in ls.item_set.all %}
             {% if not item.complete %}
-                <li> {{item.text}}  - INCOMPLETE</li>
+                <li> {{item.text}} - INCOMPLETE</li>
             {% else %}
-                <li> {{item.text}}   - COMPLETE</li>
+                <li> {{item.text}} - COMPLETE</li>
             {% endif %}
         {% endfor %}
     </ul>    
