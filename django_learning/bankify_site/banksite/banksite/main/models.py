@@ -8,3 +8,5 @@ class Operations(models.Model):
     memo = models.CharField(max_length=200)
     amount = models.DecimalField(decimal_places=2, max_digits=5)
     category = models.CharField(max_length=200)
+    
+"""import csv file"""
