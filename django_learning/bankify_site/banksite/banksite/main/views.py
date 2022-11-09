@@ -4,3 +4,7 @@ from django.http import HttpResponse
 
 def index(response):
     return HttpResponse("bankify site")
+
+def import_csv(response):
+    return HttpResponse(response, "main/import_csv.html", {})
+
