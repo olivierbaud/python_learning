@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("import_csv/", views.import_csv, name="import_csv")
+    path("csv/", views.csv, name="csv")
 ]

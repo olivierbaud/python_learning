@@ -5,6 +5,6 @@ from django.http import HttpResponse
 def index(response):
     return HttpResponse("bankify site")
 
-def import_csv(response):
-    return render(response, 'main/import_csv.html', {})
+def csv(response):
+    return render(response, 'main/csv.html', {})
 
