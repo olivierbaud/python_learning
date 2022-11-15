@@ -1,6 +1,10 @@
 {% extends 'main/base.html' %}
 
 {% block title %} Create New List {% endblock title %}
+{% block menu_import%}
+    <a class="nav-link active" href="csv">Import</a>
+    <span class="visually-hidden">(current)</span>
+{% endblock%}
 {% block content %}
 <form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}

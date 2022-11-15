@@ -5,7 +5,7 @@ import csv
 # Create your views here.
 
 def index(request):
-    return HttpResponse("bankify site")
+    return render(request, 'main/home.html', {})
 
 def csv(request):
     if request.method == "POST":
