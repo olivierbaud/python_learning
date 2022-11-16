@@ -7,28 +7,13 @@
         <body>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                <a class="navbar-brand" href="#">Bankify</a>
+                <a class="navbar-brand" href={% url 'index' %}>Bankify</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        {% block menu_home%}
-                        {%endblock%}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        {% block menu_import%}
-                        {%endblock%}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sorted">Statistics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    </ul>
+                    {% block menu_navbar %}
+                    {% endblock menu_navbar %}
                 </div>
                 </div>
             </nav>
