@@ -16,21 +16,23 @@ def importcsv(request):
             with open('main/media/test.csv') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-                    print(float(row.get("amount")))
-                    operation = Operations(
-                        date=datetime.strptime(row.get("date"), '%Y/%m/%d'),
-                        type=row.get("type"),
-                        uniqueid=int(row.get("uniqueID")),
-                        memo=row.get("memo").lower(),
-                        amount=float(row.get("amount")),
-                        category=""
-                    )
-                    operation.save()            
+                    try:
+                        operation = Operations(
+                            date=datetime.strptime(row.get("date"), '%Y/%m/%d'),
+                            type=row.get("type"),
+                            uniqueid=int(row.get("uniqueID")),
+                            memo=row.get("memo").lower(),
+                            amount=float(row.get("amount")),
+                            category=""
+                        )
+                        operation.save()  
+                    except:
+                        pass          
             return render(request, 'main/sorted.html', {})
     else:
         form = CsvUploadForm()
     return render(request, 'main/csv.html', {"form":form})
 
 def sorted(request):
-    return render(request, 'main/sorted.html', {})
+    return render(request, 'main/sorted.html', {'operations': Operations.objects.all()})
 
