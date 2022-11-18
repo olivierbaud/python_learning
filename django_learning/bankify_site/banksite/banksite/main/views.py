@@ -34,5 +34,5 @@ def importcsv(request):
     return render(request, 'main/csv.html', {"form":form})
 
 def sorted(request):
-    return render(request, 'main/sorted.html', {'operations': Operations.objects.all()})
+    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values()})
 

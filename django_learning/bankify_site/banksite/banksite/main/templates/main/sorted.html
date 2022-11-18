@@ -4,8 +4,7 @@
 {% block menu_navbar %}
 <ul class="navbar-nav me-auto">
     <li class="nav-item">
-      <a class="nav-link" href={% url 'index' %}>Home
-      </a>
+      <a class="nav-link" href={% url 'index' %}>Home</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href={% url 'importcsv'%}>Import</a>
@@ -21,9 +20,9 @@
 </ul>
 {%endblock menu_navbar%}
 {% block content %}
-<div class="container-fluid m-5" >
+<div class="container-fluid mt-5 w-auto ms-5 me-5" >
     {% if operations %}  
-    <table class="table table-hover w-75">
+    <table class="table table-hover">
         <thead>
             <tr class="table-dark">
                 <th scope="col">Date</th>
@@ -38,7 +37,11 @@
                     <td>{{ row.date }}</td>
                     <td>{{ row.memo }}</td>
                     <td>{{ row.amount }}</td>
-                    <td>{{ row.category }}</td>
+                    {% if row.category %}
+                        <td>{{ row.category }}</td>
+                    {%else%}
+                        <td>prout</td>
+                    {%endif%}
                 </tr>
             {% endfor %}
         </tbody>
