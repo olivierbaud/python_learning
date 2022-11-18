@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("csv/", views.csv, name="csv"),
+    path("importcsv/", views.importcsv, name="importcsv"),
     path("sorted/", views.sorted, name="sorted")
 ]
