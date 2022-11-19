@@ -8,5 +8,20 @@ class Operations(models.Model):
     memo = models.CharField(max_length=200)
     amount = models.FloatField()
     category = models.CharField(max_length=200)
+    
     def __str__(self):
         return f'{self.date} {self.memo} {self.amount} '
+
+
+class Categories(models.Model):
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return f'{self.name}'
+    
+    def add_category(self, category):
+        self.name = category
+        
+class keywords(models.Model):
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    keyword = models.CharField(max_length=100)

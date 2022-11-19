@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Create New List {% endblock title %}
+{% block menu_navbar %}
+<ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'index' %}>Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'importcsv'%}>Import</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'sorted'%}>Stats</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href={%url 'categories'%}>Categories
+            <span class="visually-hidden">(current)</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">About</a>
+    </li>
+</ul>
+{%endblock menu_navbar%}
+{% block content %}
+<div class="container-fluid mt-5 w-auto ms-5 me-5" >
+    {% if operations %}  
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Date</th>
+                <th scope="col">Memo</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in operations %}
+                <tr class="table-light">
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.memo }}</td>
+                    <td>{{ row.amount }}</td>
+                    {% if row.category %}
+                        <td>{{ row.category }}</td>
+                    {%else%}
+                        <td>prout</td>
+                    {%endif%}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-dismissible alert-info m-5 w-25">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>No records!</strong> 
+    </div>
+    {% endif %}
+</div>    
+{% endblock content %}
