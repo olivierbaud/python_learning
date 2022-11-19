@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import CsvUploadForm
-from .models import Operations, Categories
+from .models import Operations, Categories, Keywords
 import csv
 from datetime import datetime
 # Create your views here.
@@ -34,7 +34,7 @@ def importcsv(request):
     return render(request, 'main/csv.html', {"form":form})
 
 def sorted(request):
-    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values()})
+    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values(), 'categories': Categories.objects.all()})
 
 def categories(request):
-    return render(request, 'main/categories.html', {'categorie': Categories.objects.all()})
+    return render(request, 'main/categories.html', {'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})

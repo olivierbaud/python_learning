@@ -15,6 +15,9 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href={% url 'categories'%}>Categories</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="#">About</a>
     </li>
 </ul>
@@ -40,7 +43,9 @@
                     {% if row.category %}
                         <td>{{ row.category }}</td>
                     {%else%}
-                        <td>prout</td>
+                    <td><a href=
+                      
+                    </td>
                     {%endif%}
                 </tr>
             {% endfor %}

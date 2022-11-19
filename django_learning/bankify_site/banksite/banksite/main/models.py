@@ -22,6 +22,9 @@ class Categories(models.Model):
     def add_category(self, category):
         self.name = category
         
-class keywords(models.Model):
+class Keywords(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     keyword = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f'{self.keyword}'
