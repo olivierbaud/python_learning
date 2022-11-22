@@ -10,7 +10,13 @@ class Operations(models.Model):
     category = models.CharField(max_length=200)
     
     def __str__(self):
-        return f'{self.date} {self.memo} {self.amount} '
+        return f'{self.date} {self.memo} {self.amount}'
+    
+    def categorize(self, keywords):
+        print(keywords)
+        for keyword in keywords:
+            if keyword.keyword in self.memo:
+                self.category = keyword.category
 
 
 class Categories(models.Model):

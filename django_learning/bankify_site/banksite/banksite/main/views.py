@@ -34,7 +34,16 @@ def importcsv(request):
     return render(request, 'main/csv.html', {"form":form})
 
 def sorted(request):
-    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values(), 'categories': Categories.objects.all()})
+    if request.method == "GET":
+        for operation in Operations.objects.all():
+            #print (operation.memo)
+            for word in Keywords.objects.all():
+                #print (word)
+                if word.keyword in operation.memo:
+                    print (word.keyword)
+                    operation.category = word.category.name
+                    operation.save()
+    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values(), 'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})
 
 def categories(request):
     return render(request, 'main/categories.html', {'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})

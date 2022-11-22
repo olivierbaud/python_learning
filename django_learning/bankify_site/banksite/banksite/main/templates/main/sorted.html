@@ -43,7 +43,13 @@
                     {% if row.category %}
                         <td>{{ row.category }}</td>
                     {%else%}
-                    <td><a href=
+                        {% for word in keywords %}
+                            {% if word in row.memo%}
+                                
+                            {% else %}
+                            {% endif %}
+                        {% endfor %}
+                    <td>
                       
                     </td>
                     {%endif%}
