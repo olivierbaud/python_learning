@@ -32,6 +32,7 @@
                 <th scope="col">Memo</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Category</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -42,17 +43,12 @@
                     <td>{{ row.amount }}</td>
                     {% if row.category %}
                         <td>{{ row.category }}</td>
-                    {%else%}
-                        {% for word in keywords %}
-                            {% if word in row.memo%}
-                                
-                            {% else %}
-                            {% endif %}
-                        {% endfor %}
-                    <td>
-                      
-                    </td>
+                    {% else %}
+                        <td></td>
                     {%endif%}
+                    <td> 
+                        <button type="button" class="btn btn-primary btn-sm" href={% url 'operation' row.id %}>Edit</button>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

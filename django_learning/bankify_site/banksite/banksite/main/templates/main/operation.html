@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Create New List {% endblock title %}
+{% block menu_navbar %}
+<ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'index' %}>Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'importcsv'%}>Import</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'sorted'%}>Stats</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={%url 'categories'%}>Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">About</a>
+    </li>
+</ul>
+{%endblock menu_navbar%}
