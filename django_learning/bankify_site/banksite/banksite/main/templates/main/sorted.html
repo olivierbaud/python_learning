@@ -36,18 +36,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in operations %}
+            {% for operation in operations %}
                 <tr class="table-light">
-                    <td>{{ row.date }}</td>
-                    <td>{{ row.memo }}</td>
-                    <td>{{ row.amount }}</td>
-                    {% if row.category %}
-                        <td>{{ row.category }}</td>
+                    <td>{{ operation.date }}</td>
+                    <td>{{ operation.memo }}</td>
+                    <td>{{ operation.amount }}</td>
+                    {% if operation.category %}
+                        <td>{{ operation.category }}</td>
                     {% else %}
                         <td></td>
                     {%endif%}
                     <td> 
-                        <button type="button" class="btn btn-primary btn-sm" href={% url 'operation' row.id %}>Edit</button>
+                        <a href={% url 'operation' operation.uniqueid %}>
+                        <button type="button" class="btn btn-primary btn-sm" >Edit</button>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

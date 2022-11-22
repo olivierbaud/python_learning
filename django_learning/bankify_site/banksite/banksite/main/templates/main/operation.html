@@ -20,3 +20,53 @@
     </li>
 </ul>
 {%endblock menu_navbar%}
+{% block content %}
+<div class="container-fluid mt-5 w-auto ms-5 me-5" >  
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Memo</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr class="table-light">
+                    <td>{{ operation.date }}</td>
+                    <td>{{ operation.type }}</td>
+                    <td>{{ operation.memo }}</td>
+                    <td>{{ operation.amount }}</td>
+                    <td>{{ operation.category }}</td>
+             </tr>
+        </tbody>
+    </table>
+</div>    
+<div class="container-fluid mt-5 w-auto ms-5 me-5" > 
+    <form>
+        <fieldset>
+          <legend>Edit Operation</legend>
+          <div class="form-group w-25">
+            <label for="exampleSelect1" class="form-label mt-4">Choose category</label>
+            <select class="form-select" id="exampleSelect1">
+                {% for category in categories %}
+                    <option>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="form-group w-25">
+            <label for="exampleSelect1" class="form-label mt-4">Choose Keyword</label>
+            <select class="form-select" id="exampleSelect1">
+                {% for keyword in keyword_memo %}
+                    <option>{{ keyword }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+      </form>
+
+</div>
+{% endblock content %}

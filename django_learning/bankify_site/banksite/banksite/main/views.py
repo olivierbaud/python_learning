@@ -46,4 +46,6 @@ def categories(request):
     return render(request, 'main/categories.html', {'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})
 
 def operation(request, id):
-    return render(request, 'main/operation.html', {})
+    operation = Operations.objects.get(uniqueid=id)
+    keyword_memo = operation.memo.split()
+    return render(request, 'main/operation.html', {'operation':operation, 'categories': Categories.objects.all(), 'keyword_memo': keyword_memo})
