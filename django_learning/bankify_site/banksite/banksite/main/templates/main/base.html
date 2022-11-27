@@ -1,12 +1,16 @@
 {% load static %} 
-<html>
+<!doctype html>
+<html lang="en ">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bankify Website</title>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    
-        <body class="d-flex flex-column min-vh-100">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-                <div class="container-fluid">
+        
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+            <div class="container-fluid">
                 <a class="navbar-brand" href={% url 'index' %}>Bankify</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -15,14 +19,14 @@
                     {% block menu_navbar %}
                     {% endblock menu_navbar %}
                 </div>
-                </div>
-            </nav>
-            <div id='content', name='content' >
+            </div>
+        </nav>
+        <div id='content', name='content' >
                 {% block content %} 
                 {% endblock %}
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-        </body>
-    </head>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    
 
 </html>

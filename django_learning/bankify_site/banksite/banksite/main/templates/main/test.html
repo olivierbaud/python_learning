@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Edit Operation {% endblock title %}
+{% block title %} Create New List {% endblock title %}
 {% block menu_navbar %}
 <ul class="navbar-nav me-auto">
     <li class="nav-item">
@@ -43,11 +43,11 @@
         </tbody>
     </table>
 </div>    
-<div class="container-fluid shadow mt-5 w-auto ms-5 me-5" > 
+<div class="container-fluid mt-5 w-auto ms-5 me-5" > 
     <form>
-        <fieldset class="shadow p-3 mb-5 bg-body rounded">
+        <fieldset>
           <legend>Edit Operation</legend>
-          <div class="form-group w-25 " >
+          <div class="form-group w-25">
             <label for="selectcategory" class="form-label mt-4">Choose category</label>
             <select required class="form-select" id="selectcategory">
                 {% for category in categories %}

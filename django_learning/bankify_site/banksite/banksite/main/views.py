@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from .forms import CsvUploadForm
 from .models import Operations, Categories, Keywords
 import csv
@@ -49,3 +50,11 @@ def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
     return render(request, 'main/operation.html', {'operation':operation, 'categories': Categories.objects.all(), 'keyword_memo': keyword_memo})
+
+def popup(request):
+    return HttpResponseRedirect(reverse('operation'))
+
+def test(request, id):
+    operation = Operations.objects.get(uniqueid=id)
+    keyword_memo = operation.memo.split()
+    return render(request, 'main/test.html', {'operation':operation, 'categories': Categories.objects.all(), 'keyword_memo': keyword_memo})
