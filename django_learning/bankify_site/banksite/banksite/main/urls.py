@@ -6,6 +6,6 @@ urlpatterns = [
     path("importcsv/", views.importcsv, name="importcsv"),
     path("sorted/", views.sorted, name="sorted"),
     path("categories/", views.categories, name="categories"),
-    path("<int:id>", views.test, name="operation"),
+    path("<int:id>", views.operation, name="operation"),
     
 ]
