@@ -17,8 +17,3 @@ class AddCategoryOperationForm(forms.ModelForm):
         model = Categories
         fields = ['name']
         
-class ChooseKeywordForm(forms.ModelForm):
-    class Meta:
-        model = Keywords
-        fields = [''] 
-
