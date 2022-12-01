@@ -21,6 +21,13 @@
 </ul>
 {%endblock menu_navbar%}
 {% block content %}
+{% if success %}
+<div class="alert alert-dismissible alert-success w-25">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong></strong> Category successfully created!
+</div>
+{% else %}
+{% endif %}
 <div class="container-fluid mt-5 w-auto ms-5 me-5 " >  
     <table class="table table-hover shadow">
         <thead>
@@ -43,52 +50,65 @@
         </tbody>
     </table>
 </div>    
-<div class="container-fluid shadow mt-5 w-auto ms-5 me-5" > 
-    <form>
-        <fieldset class="">
-          <legend>Edit Operation</legend>
-          <div class="form-group w-25 " >
-            <label for="selectcategory" class="form-label mt-4">Choose category</label>
-            <select required class="form-select" id="selectcategory">
-                {% for category in categories %}
-                    <option>{{ category.name }}</option>
-                {% endfor %}
-            </select>
-          </div>
-          <button type="submit" class="btn btn-secondary mt-2"  data-bs-toggle="modal" data-bs-target="#modaladdcat">Add New Category</button>
-          
+<div class="container-fluid shadow mt-5 w-25 " >
+   
+  <form>
+    <fieldset class="">
+      <legend>Edit Operation</legend>
+      <div class="form-group " >
+        <label for="selectcategory" class="form-label mt-4">Choose a Category</label>
+        <select required class="form-select" id="selectcategory">
+          {% for category in categories %}
+            <option>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </fieldset>
+  </form>
+  <div>
+    <button type="submit" class="btn btn-secondary mt-2"  data-bs-toggle="modal" data-bs-target="#modaladdcat">Add New Category</button>
+              
           <!-- Modal -->
           <div class="modal" id="modaladdcat" tabindex=-"-1" arial-labelledby="mymodallabel1" arial-hidden="true" >
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+              <div class="modal-content">
+                <form method='POST' action={% url 'operation' operation.uniqueid %}>
                   <div class="modal-header">
-                <h5 class="modal-title">Add New Category</h5>
+                    <h5 class="modal-title">Add New Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true"></span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <p>The new category will be associated with every operation that include the keyword associated</p>
+                    {% csrf_token %}
+                    {{ form.as_p}}
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   </div>
-                </div>
+                </form>
               </div>
+            </div>
           </div>
-          <div class="form-group w-25">
-            <label for="selectkeyword" class="form-label mt-4">Choose a Relevant Keyword</label>
-            <select class="form-select" id="selectkeyword">
-                {% for keyword in keyword_memo %}
-                    <option>{{ keyword }}</option>
-                {% endfor %}
-            </select>
-          </div>
-          
-          <button type="submit" class="btn btn-primary mt-5">Submit</button>
-        </fieldset>
-      </form>
-
+  </div>
+  <form>
+    <fieldset>    
+      <div class="form-group">
+        <label for="selectkeyword" class="form-label mt-4">Choose a Relevant Keyword</label>
+        <select class="form-select" id="selectkeyword">
+          {% for keyword in keyword_memo %}
+            <option>{{ keyword }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-5 mb-3">Submit</button>
+      
+    </fieldset>
+    
+  </form>
+  
 </div>
+
 {% endblock content %}

@@ -20,7 +20,7 @@ class Operations(models.Model):
 
 
 class Categories(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     
     def __str__(self):
         return f'{self.name}'
@@ -34,3 +34,6 @@ class Keywords(models.Model):
     
     def __str__(self):
         return f'{self.keyword}'
+    
+    def add_keyword(self, keyword, category):
+        self.keyword = keyword

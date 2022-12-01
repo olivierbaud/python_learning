@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .forms import CsvUploadForm
+from .forms import CsvUploadForm, NewCategoryForm
 from .models import Operations, Categories, Keywords
 import csv
 from datetime import datetime
@@ -41,20 +41,41 @@ def sorted(request):
                 if word.keyword in operation.memo:
                     operation.category = word.category.name
                     operation.save()
-    return render(request, 'main/sorted.html', {'operations': Operations.objects.all().order_by('date').values(), 'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})
+    return render(request, 'main/sorted.html', {
+        'operations': Operations.objects.all().order_by('date').values(), 
+        'categories': Categories.objects.all(), 
+        'keywords': Keywords.objects.all()
+        })
 
 def categories(request):
-    return render(request, 'main/categories.html', {'categories': Categories.objects.all(), 'keywords': Keywords.objects.all()})
+    return render(request, 'main/categories.html', {
+        'categories': Categories.objects.all(), 
+        'keywords': Keywords.objects.all()
+        })
 
 def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
-    return render(request, 'main/operation.html', {'operation':operation, 'categories': Categories.objects.all(), 'keyword_memo': keyword_memo})
+    if request.method == 'POST':
+        form = NewCategoryForm(request.POST)
+        if form.is_valid():
+            new_category = Categories(name = form.cleaned_data['name'])
+            new_category.save()
+            return render(request, 'main/operation.html', {
+                'operation':operation, 
+                'categories': Categories.objects.all(), 
+                'keyword_memo': keyword_memo,
+                'form': NewCategoryForm,
+                'succes': True
+                })
+    else:
+        form = NewCategoryForm()
+    return render(request, 'main/operation.html', {
+        'operation':operation, 
+        'categories': Categories.objects.all(), 
+        'keyword_memo': keyword_memo,
+        'form': NewCategoryForm()
+        })
 
-def popup(request):
-    return HttpResponseRedirect(reverse('operation'))
-
-def test(request, id):
-    operation = Operations.objects.get(uniqueid=id)
-    keyword_memo = operation.memo.split()
-    return render(request, 'main/test.html', {'operation':operation, 'categories': Categories.objects.all(), 'keyword_memo': keyword_memo})
+#def popup(request):
+ #   return HttpResponseRedirect(reverse('operation'))
