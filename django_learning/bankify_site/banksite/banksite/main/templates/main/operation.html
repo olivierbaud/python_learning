@@ -10,9 +10,6 @@
       <a class="nav-link" href={% url 'importcsv'%}>Import</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href={% url 'sorted'%}>Stats</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href={%url 'categories'%}>Categories</a>
     </li>
     <li class="nav-item">
@@ -28,7 +25,7 @@
 </div>
 {% else %}
 {% endif %}
-<div class="container-fluid mt-5 w-auto ms-5 me-5 " >  
+<div class="container-fluid mt-5 w-auto ms-5 me-5" >  
     <table class="table table-hover shadow">
         <thead>
             <tr class="table-dark">
@@ -50,10 +47,9 @@
         </tbody>
     </table>
 </div>    
-<div class="container-fluid shadow mt-5 w-25 " >
-   
-  <form>
-    <fieldset class="">
+<div class="container-fluid shadow mt-5 w-25 p-4" > 
+  <form method ="POST" action={% url 'operation' operation.uniqueid %}>
+    <fieldset class="w-75">
       <legend>Edit Operation</legend>
       <div class="form-group " >
         <label for="selectcategory" class="form-label mt-4">Choose a Category</label>
@@ -62,10 +58,19 @@
             <option>{{ category.name }}</option>
           {% endfor %}
         </select>
+      </div>  
+      <div class="form-group">
+        <label for="selectkeyword" class="form-label mt-4">Choose a Relevant Keyword</label>
+        <select class="form-select" id="selectkeyword">
+          {% for keyword in keyword_memo %}
+            <option>{{ keyword }}</option>
+          {% endfor %}
+        </select>
       </div>
-    </fieldset>
+      <button type="submit" class="btn btn-primary mt-5 mb-3">Submit</button>
+      </fieldset>
   </form>
-  <div>
+  <div class="mb-5">
     <button type="submit" class="btn btn-secondary mt-2"  data-bs-toggle="modal" data-bs-target="#modaladdcat">Add New Category</button>
               
           <!-- Modal -->
@@ -93,22 +98,6 @@
             </div>
           </div>
   </div>
-  <form>
-    <fieldset>    
-      <div class="form-group">
-        <label for="selectkeyword" class="form-label mt-4">Choose a Relevant Keyword</label>
-        <select class="form-select" id="selectkeyword">
-          {% for keyword in keyword_memo %}
-            <option>{{ keyword }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary mt-5 mb-3">Submit</button>
-      
-    </fieldset>
-    
-  </form>
-  
 </div>
 
 {% endblock content %}

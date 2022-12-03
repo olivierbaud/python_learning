@@ -57,6 +57,7 @@ def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
     if request.method == 'POST':
+        print(request.POST)
         form = NewCategoryForm(request.POST)
         if form.is_valid():
             new_category = Categories(name = form.cleaned_data['name'])
