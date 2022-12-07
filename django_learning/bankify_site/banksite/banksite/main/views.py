@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .forms import CsvUploadForm, NewCategoryForm
+from .forms import CsvUploadForm, NewCategoryForm, SelectCategory
 from .models import Operations, Categories, Keywords
 import csv
 from datetime import datetime
@@ -57,7 +57,7 @@ def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
     if request.method == 'POST':
-        print(request.POST)
+        print(request.META)
         form = NewCategoryForm(request.POST)
         if form.is_valid():
             new_category = Categories(name = form.cleaned_data['name'])
@@ -66,7 +66,8 @@ def operation(request, id):
                 'operation':operation, 
                 'categories': Categories.objects.all(), 
                 'keyword_memo': keyword_memo,
-                'form': NewCategoryForm,
+                'form': NewCategoryForm(),
+                'formcategory': SelectCategory(),
                 'succes': True
                 })
     else:
@@ -75,7 +76,8 @@ def operation(request, id):
         'operation':operation, 
         'categories': Categories.objects.all(), 
         'keyword_memo': keyword_memo,
-        'form': NewCategoryForm()
+        'form': NewCategoryForm(),
+        'formcategory': SelectCategory(),
         })
 
 #def popup(request):

@@ -48,16 +48,13 @@
     </table>
 </div>    
 <div class="container-fluid shadow mt-5 w-25 p-4" > 
-  <form method ="POST" action={% url 'operation' operation.uniqueid %}>
+  <form method ="POST" action={% url 'operation' operation.uniqueid %} id="testform">
+    {% csrf_token %}
     <fieldset class="w-75">
       <legend>Edit Operation</legend>
       <div class="form-group " >
         <label for="selectcategory" class="form-label mt-4">Choose a Category</label>
-        <select required class="form-select" id="selectcategory">
-          {% for category in categories %}
-            <option>{{ category.name }}</option>
-          {% endfor %}
-        </select>
+        {{formcategory}}
       </div>  
       <div class="form-group">
         <label for="selectkeyword" class="form-label mt-4">Choose a Relevant Keyword</label>
@@ -66,8 +63,9 @@
             <option>{{ keyword }}</option>
           {% endfor %}
         </select>
+      {{categories}}
       </div>
-      <button type="submit" class="btn btn-primary mt-5 mb-3">Submit</button>
+      <button type="submit" class="btn btn-primary mt-4 mb-3">Submit</button>
       </fieldset>
   </form>
   <div class="mb-5">
