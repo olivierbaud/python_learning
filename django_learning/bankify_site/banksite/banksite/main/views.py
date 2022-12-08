@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .forms import CsvUploadForm, NewCategoryForm, SelectCategory
+from .forms import CsvUploadForm, NewCategoryForm, SelectCategoryForm
 from .models import Operations, Categories, Keywords
 import csv
 from datetime import datetime
@@ -56,20 +56,22 @@ def categories(request):
 def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
+    SelectCategoryForm.transferkeyword('test', operation.memo)
     if request.method == 'POST':
         if 'selectcategoryhidden' in request.POST:
-            form = SelectCategory(request.POST)
-            print(form)
-            if form:
-                print('test', form.cleaned_data)
-                operation(category = form.cleaned_data['categorie'])
+            form = SelectCategoryForm(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                print('test', form)
+                operation.category = form.cleaned_data['categorie']
                 operation.save()
+                
                 return render(request, 'main/operation.html', {
                     'operation':operation, 
                     'categories': Categories.objects.all(), 
                     'keyword_memo': keyword_memo,
                     'form': NewCategoryForm(),
-                    'formcategory': SelectCategory(),
+                    'formcategory': SelectCategoryForm(),
                     'succes': True
                     })
         else:
@@ -82,7 +84,7 @@ def operation(request, id):
                     'categories': Categories.objects.all(), 
                     'keyword_memo': keyword_memo,
                     'form': NewCategoryForm(),
-                    'formcategory': SelectCategory(),
+                    'formcategory': SelectCategoryForm(),
                     'succes': True
                     })
     else:
@@ -92,7 +94,7 @@ def operation(request, id):
         'categories': Categories.objects.all(), 
         'keyword_memo': keyword_memo,
         'form': NewCategoryForm(),
-        'formcategory': SelectCategory(),
+        'formcategory': SelectCategoryForm(),
         })
 
 #def popup(request):

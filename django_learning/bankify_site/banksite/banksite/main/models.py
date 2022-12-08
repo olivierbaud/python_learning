@@ -1,6 +1,16 @@
 from django.db import models
 
 # Create your models here.
+
+class Categories(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return f'{self.name}'
+    
+    def add_category(self, category):
+        self.name = category
+        
 class Operations(models.Model):
     date = models.DateField()
     type = models.CharField(max_length=10)
@@ -19,14 +29,6 @@ class Operations(models.Model):
                 self.category = keyword.category
 
 
-class Categories(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    
-    def __str__(self):
-        return f'{self.name}'
-    
-    def add_category(self, category):
-        self.name = category
         
 class Keywords(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)

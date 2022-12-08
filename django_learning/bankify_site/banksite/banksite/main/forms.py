@@ -21,10 +21,24 @@ class AddCategoryOperationForm(forms.ModelForm):
         model = Categories
         fields = ['name']
         
-class SelectCategory(forms.Form):
+class SelectCategoryForm(forms.Form):
     selectcategoryhidden = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-    categorie = forms.MultipleChoiceField(
+    keywordmemo=[('test', 'test')]
+    categorie = forms.ChoiceField(
         required=True,
-        widget=forms.Select,
-        choices=categories_
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        choices=categories_,
+        label=""
     )
+    
+    keywords = forms.ChoiceField(
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        choices=keywordmemo,
+        label=""
+    )
+    def transferkeyword(self, memo):
+        keywords_operation=memo.split()
+        for key in keywords_operation:
+            self.keywordmemo.append((key,key))
+        
