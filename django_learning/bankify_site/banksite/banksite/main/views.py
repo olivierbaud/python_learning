@@ -57,19 +57,34 @@ def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
     if request.method == 'POST':
-        print(request.META)
-        form = NewCategoryForm(request.POST)
-        if form.is_valid():
-            new_category = Categories(name = form.cleaned_data['name'])
-            new_category.save()
-            return render(request, 'main/operation.html', {
-                'operation':operation, 
-                'categories': Categories.objects.all(), 
-                'keyword_memo': keyword_memo,
-                'form': NewCategoryForm(),
-                'formcategory': SelectCategory(),
-                'succes': True
-                })
+        if 'selectcategoryhidden' in request.POST:
+            form = SelectCategory(request.POST)
+            print(form)
+            if form:
+                print('test', form.cleaned_data)
+                operation(category = form.cleaned_data['categorie'])
+                operation.save()
+                return render(request, 'main/operation.html', {
+                    'operation':operation, 
+                    'categories': Categories.objects.all(), 
+                    'keyword_memo': keyword_memo,
+                    'form': NewCategoryForm(),
+                    'formcategory': SelectCategory(),
+                    'succes': True
+                    })
+        else:
+            form = NewCategoryForm(request.POST)
+            if form.is_valid():
+                new_category = Categories(name = form.cleaned_data['name'])
+                new_category.save()
+                return render(request, 'main/operation.html', {
+                    'operation':operation, 
+                    'categories': Categories.objects.all(), 
+                    'keyword_memo': keyword_memo,
+                    'form': NewCategoryForm(),
+                    'formcategory': SelectCategory(),
+                    'succes': True
+                    })
     else:
         form = NewCategoryForm()
     return render(request, 'main/operation.html', {
