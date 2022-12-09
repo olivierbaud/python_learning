@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Categories(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, default="unknown")
     
     def __str__(self):
         return f'{self.name}'
@@ -18,21 +18,17 @@ class Operations(models.Model):
     memo = models.CharField(max_length=200)
     amount = models.FloatField()
     category = models.CharField(max_length=200)
+    categorie = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
         return f'{self.date} {self.memo} {self.amount}'
     
-    def categorize(self, keywords):
-        print(keywords)
-        for keyword in keywords:
-            if keyword.keyword in self.memo:
-                self.category = keyword.category
 
 
         
 class Keywords(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    keyword = models.CharField(max_length=100)
+    keyword = models.CharField(max_length=100, unique=True)
     
     def __str__(self):
         return f'{self.keyword}'

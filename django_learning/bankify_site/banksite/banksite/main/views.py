@@ -24,7 +24,8 @@ def importcsv(request):
                             uniqueid=int(row.get("uniqueID")),
                             memo=row.get("memo").lower(),
                             amount=float(row.get("amount")),
-                            category=""
+                            category="",
+                            categorie=Categories.objects.get(name='unknown')
                         )
                         operation.save()  
                     except:
@@ -39,10 +40,14 @@ def sorted(request):
         for operation in Operations.objects.all():
             for word in Keywords.objects.all():
                 if word.keyword in operation.memo:
-                    operation.category = word.category.name
+                    operation.categorie = Categories.objects.get(name=word.category)
                     operation.save()
+    else:
+        for operation in Operations.objects.all():
+            operation.categorie = Categories.objects.get(name='unknown')
+            operation.save()
     return render(request, 'main/sorted.html', {
-        'operations': Operations.objects.all().order_by('date').values(), 
+        'operations': Operations.objects.all().order_by('date'), 
         'categories': Categories.objects.all(), 
         'keywords': Keywords.objects.all()
         })
@@ -61,10 +66,9 @@ def operation(request, id):
         if 'selectcategoryhidden' in request.POST:
             formcategory = SelectCategoryForm(data=request.POST, keywordmemo=keyword_memo)
             if formcategory.is_valid():
-                operation.category = formcategory.cleaned_data['category']
+                operation.categorie = Categories.objects.get(name=formcategory.cleaned_data['category'])
                 operation.save()
-                newkeyword=Keywords(keyword=formcategory.cleaned_data['keywords'], category=Categories.objects.get(name=operation.category))
-                print(newkeyword)
+                newkeyword=Keywords(keyword=formcategory.cleaned_data['keywords'], category=Categories.objects.get(name=operation.categorie))
                 newkeyword.save()
                 return render(request, 'main/operation.html', {
                     'operation':operation, 
