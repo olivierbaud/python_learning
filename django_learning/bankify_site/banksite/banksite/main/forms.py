@@ -1,10 +1,5 @@
 from django import forms
-from .models import Keywords, Categories
-
-categories_=[]
-for categorie in Categories.objects.all():
-    categories_.append((categorie,categorie))
-    
+from .models import Categories
     
 class CsvUploadForm(forms.Form):
     file = forms.FileField()
@@ -25,7 +20,7 @@ class AddCategoryOperationForm(forms.ModelForm):
 class SelectCategoryForm(forms.Form):
     def __init__(self, keywordmemo, *args, **kwargs):
         #self.keywordmemo=kwargs.pop('keywordmemo')
-        super(SelectCategoryForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['category'] = forms.ChoiceField(
             required=True,
             widget=forms.Select(attrs={'class': 'form-select'}),
@@ -38,8 +33,8 @@ class SelectCategoryForm(forms.Form):
             choices=tuple([(word,word) for word in keywordmemo ]),
             label="Choose a relevant Keyword"
             )
-        
-        
+    category = forms.ChoiceField()
+    keywords = forms.ChoiceField()     
     selectcategoryhidden = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     
         

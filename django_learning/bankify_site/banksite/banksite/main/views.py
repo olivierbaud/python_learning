@@ -56,15 +56,16 @@ def categories(request):
 def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
+    
     if request.method == 'POST':
         if 'selectcategoryhidden' in request.POST:
-            form = SelectCategoryForm(request.POST)
-            print(request.POST)
-            if form.is_valid():
-                print('test', form)
-                operation.category = form.cleaned_data['categorie']
+            formcategory = SelectCategoryForm(data=request.POST, keywordmemo=keyword_memo)
+            if formcategory.is_valid():
+                operation.category = formcategory.cleaned_data['category']
                 operation.save()
-                
+                newkeyword=Keywords(keyword=formcategory.cleaned_data['keywords'], category=Categories.objects.get(name=operation.category))
+                print(newkeyword)
+                newkeyword.save()
                 return render(request, 'main/operation.html', {
                     'operation':operation, 
                     'categories': Categories.objects.all(), 
@@ -73,7 +74,10 @@ def operation(request, id):
                     'formcategory': SelectCategoryForm(keywordmemo=keyword_memo),
                     'succes': True
                     })
+            else:
+                print("error", formcategory.errors.as_data())
         else:
+            
             form = NewCategoryForm(request.POST)
             if form.is_valid():
                 new_category = Categories(name = form.cleaned_data['name'])
@@ -88,6 +92,8 @@ def operation(request, id):
                     })
     else:
         form = NewCategoryForm()
+        formcategory = SelectCategoryForm(keywordmemo=keyword_memo)
+
     return render(request, 'main/operation.html', {
         'operation':operation, 
         'categories': Categories.objects.all(), 

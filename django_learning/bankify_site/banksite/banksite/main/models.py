@@ -37,5 +37,3 @@ class Keywords(models.Model):
     def __str__(self):
         return f'{self.keyword}'
     
-    def add_keyword(self, keyword, category):
-        self.keyword = keyword
