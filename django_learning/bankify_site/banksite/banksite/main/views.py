@@ -56,7 +56,6 @@ def categories(request):
 def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
     keyword_memo = operation.memo.split()
-    SelectCategoryForm.transferkeyword('test', operation.memo)
     if request.method == 'POST':
         if 'selectcategoryhidden' in request.POST:
             form = SelectCategoryForm(request.POST)
@@ -71,7 +70,7 @@ def operation(request, id):
                     'categories': Categories.objects.all(), 
                     'keyword_memo': keyword_memo,
                     'form': NewCategoryForm(),
-                    'formcategory': SelectCategoryForm(),
+                    'formcategory': SelectCategoryForm(keywordmemo=keyword_memo),
                     'succes': True
                     })
         else:
@@ -84,7 +83,7 @@ def operation(request, id):
                     'categories': Categories.objects.all(), 
                     'keyword_memo': keyword_memo,
                     'form': NewCategoryForm(),
-                    'formcategory': SelectCategoryForm(),
+                    'formcategory': SelectCategoryForm(keywordmemo=keyword_memo),
                     'succes': True
                     })
     else:
@@ -94,7 +93,7 @@ def operation(request, id):
         'categories': Categories.objects.all(), 
         'keyword_memo': keyword_memo,
         'form': NewCategoryForm(),
-        'formcategory': SelectCategoryForm(),
+        'formcategory': SelectCategoryForm(keywordmemo=keyword_memo),
         })
 
 #def popup(request):
