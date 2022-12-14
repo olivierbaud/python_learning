@@ -42,7 +42,11 @@
                     <td>{{ operation.date }}</td>
                     <td>{{ operation.memo }}</td>
                     <td>{{ operation.amount }}</td>
-                    <td>{{ operation.categorie }}</td>
+                    {% if operation.categorie == "unknown" %}
+                        <td style="color: blue">tt{{ operation.categorie }}</td>
+                    {% else %}
+                        <td>{{ operation.categorie }}</td>
+                    {% endif %}
                     <td> 
                         <a href={% url 'operation' operation.uniqueid %}>
                         <button type="button" class="btn btn-primary btn-sm" >Edit</button>

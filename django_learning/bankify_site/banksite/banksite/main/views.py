@@ -7,8 +7,6 @@ import csv
 from datetime import datetime
 # Create your views here.
 
-def index(request):
-    return render(request, 'main/home.html', {})
 
 def importcsv(request):
     if request.method == "POST":
@@ -35,7 +33,7 @@ def importcsv(request):
         form = CsvUploadForm()
     return render(request, 'main/csv.html', {"form":form})
 
-def sorted(request):
+def index(request):
     if request.method == "GET":
         for operation in Operations.objects.all():
             for word in Keywords.objects.all():
@@ -60,7 +58,12 @@ def categories(request):
 
 def operation(request, id):
     operation = Operations.objects.get(uniqueid=id)
-    keyword_memo = operation.memo.split()
+    forbidden_words = ["card", "7152", "christchurch"]
+    keyword_memo = []
+    for word in operation.memo.split():
+        if len(word) > 2 and word not in forbidden_words:
+            keyword_memo.append(word)
+         
     
     if request.method == 'POST':
         if 'selectcategoryhidden' in request.POST:
